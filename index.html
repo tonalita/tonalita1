@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonalitá - Built for Curious Plates</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header id="home-page">
+            <h1 class="cafe-title">TONALITÁ</h1>
+            <h2 class="cafe-subtitle">Built for curious plates</h2>
+            <button id="show-menu-button" class="menu-button">View Menu</button>
+        </header>
+
+        <div id="menu-overlay" class="overlay">
+            <div class="overlay-content">
+                <button class="close-button" onclick="closeOverlay()">Close</button>
+                <div id="main-categories" class="category-grid">
+                    </div>
+                <button id="back-to-main" class="menu-button back-button" onclick="showMainCategories()" style="display:none;">← Back to Main Menu</button>
+            </div>
+        </div>
+        
+        <div id="menu-items-display" class="menu-items-section" style="display:none;">
+            <button class="close-button" onclick="closeItemsDisplay()">← Back to Categories</button>
+            <h3 id="current-category-title" class="current-category-title"></h3>
+            <div id="menu-list" class="menu-list">
+                </div>
+        </div>
+
+        <script id="menu-data" type="application/json">
+            {
+                "Brunch and Meal": {
+                    "Brunch": [
+                        {"name": "Sunrise Crunch Muffin", "price": "£6.95", "description": "Toasted English muffin filled with crispy chicken, beef bacon, egg, and caramelised onion — your perfect morning bite."},
+                        {"name": "Classic English Breakfast", "price": "£6.95", "description": "Traditional full breakfast served with eggs, toast, sausage, beans"},
+                        {"name": "Morning Granola Bowl", "price": "£6.50", "description": "Crunchy granola with yogurt, honey, and seasonal fruits — a refreshing start."},
+                        {"name": "Pancake", "price": "£5.50", "description": "Soft, golden pancakes drizzled with syrup — sweet and comforting."},
+                        {"name": "Beef Bacon & Egg Wrap", "price": "£5.95", "description": "Scrambled egg, smoky beef bacon, caramelised onion, and cheese wrapped to perfection."}
+                    ],
+                    "Burgers": [
+                        {"name": "Classic Beef Burger", "price": "£6.95", "description": "Juicy Angus beef patty with lettuce, cheese, and special burger sauce"},
+                        {"name": "Sweet Inferno", "price": "£6.95", "description": "Crunchy chicken topped with lettuce, coleslaw and a hint of sweet and chilly"},
+                        {"name": "Smoky BBQ Beef", "price": "£6.95", "description": "Angus beef patty glazed in special BBQ sauce with melted cheese and caramelised onions"},
+                        {"name": "K. BBQ Street Burger", "price": "£7.95", "description": "Korean-style Angus beef BBQ burger — tangy, saucy, and packed with bold flavour."},
+                        {"name": "Mexican Jalapeño Crunch", "price": "£7.95", "description": "Spicy Angus beef burger with jalapeños, nacho crunch, and special burger sauce."}
+                    ],
+                    "Wraps": [
+                        {"name": "Classic BBQ", "price": "£5.50", "description": "Crispy chicken with lettuce, cheese and special BBQ sauce wrapped in tortilla"},
+                        {"name": "Mayo Chicken Wrap", "price": "£5.50", "description": "Crispy chicken with lettuce, cheese and mayo sauce wrapped in tortilla."}
+                    ],
+                    "Loaded Fries": [
+                        {"name": "Chicken Loaded Fries", "price": "£5.95", "description": "Golden fries topped with saucy chicken and melted cheese."},
+                        {"name": "Mexican Nacho Fiesta", "price": "£6.50", "description": "Chicken tenders and fries layered with nachos, and spicy sauce."}
+                    ],
+                    "Sides": [
+                        {"name": "BBQ Wings (5pcs)", "price": "£4.95", "description": "Tender wings slightly grilled and glazed with smoky BBQ sauce."},
+                        {"name": "Crispy Wings (5pcs)", "price": "£4.25", "description": "Crisp-fried wings with a golden crunch."},
+                        {"name": "Seasoned Fries", "price": "£4.00", "description": "Perfectly seasoned with cajun"}
+                    ]
+                },
+                "Desserts": {
+                    "Desserts": [
+                        {"name": "Edgptian Lou’a (Strawberry)", "price": "£12.95", "description": "Delicate layers of crispy kunafa filled with rich cream cheese and fresh strawberries, finished with a luxurious pistachio sauce. Add nutella or biscoff £1"},
+                        {"name": "Edgptian Lou’a (Mango)", "price": "£13.95", "description": "A heavenly blend of creamy cheese and ripe mango between layers of golden kunafa, topped with smooth pistachio drizzle. Add nutella or biscoff £1"}
+                    ],
+                    "Waffles": [
+                        {"name": "Pistachio Kunafa Sandwich", "price": "£8.95", "description": "Crispy waffle topped with crunchy pistachios for a delightful texture and nutty flavor."},
+                        {"name": "Oreo Crunch", "price": "£5.95", "description": "Crispy waffle topped with crushed Oreo cookies and chocolate sauce, finished with a dollop of whipped cream"},
+                        {"name": "Strawberry Bloom", "price": "£7.50", "description": "Fresh strawberries blended with creamy milk, lightly sweetened, and topped with a delicate strawberry foam"},
+                        {"name": "Waffle Bites", "price": "£6.95", "description": "Crispy, bite-sized waffles, perfect for a sweet treat or sharing with friends"},
+                        {"name": "Biscoff Nutella", "price": "£5.50", "description": "Fluffy golden waffle stacked high and layered with rich, creamy Nutella, then drizzled with warm Biscoff sauce. Topped with crushed Lotus Biscoff biscuits"},
+                        {"name": "Pistachio Nutella", "price": "£5.95", "description": ""},
+                        {"name": "Oreo Nutella", "price": "£5.50", "description": ""}
+                    ],
+                    "Pancakes": [
+                        {"name": "Biscoff Strawberry-Banana", "price": "£6.95", "description": "Fluffy golden pancakes layered with creamy Biscoff spread, fresh slices of ripe banana, and juicy strawberries. Topped with a drizzle of warm Biscoff sauce"},
+                        {"name": "Biscoff Nutella", "price": "£5.50", "description": "Fluffy golden pancakes stacked high and layered with rich, creamy Nutella, then drizzled with warm Biscoff sauce. Topped with crushed Lotus Biscoff biscuits"},
+                        {"name": "Pistachio Nutella", "price": "£5.95", "description": "Soft, fluffy pancakes layered with velvety Nutella and rich pistachio cream. Topped with crushed pistachios for a nutty crunch and a drizzle of chocolate sauce"},
+                        {"name": "Oreo Nutella", "price": "£5.50", "description": "A stack of fluffy pancakes layered with smooth Nutella and crushed Oreo cookies, drizzled with rich chocolate sauce"},
+                        {"name": "Kunafa Crunch Sandwich", "price": "£8.95", "description": "A layer of pistachio kunafa sandwiched between fluffy pancakes, topped with your choice of Nutella or Biscoff. Add icecream £1.50 (2 scoops £2), whipped cream £.70"}
+                    ],
+                    "Crepe": [
+                        {"name": "Dubai Crepe Pistachio Kunafa", "price": "£7.95", "description": ""},
+                        {"name": "Oreo Nutella", "price": "£5.95", "description": ""},
+                        {"name": "Choco Berry and Banana", "price": "£6.95", "description": ""},
+                        {"name": "Biscoff Nutella", "price": "£5.95", "description": ""}
+                    ]
+                },
+                "Drinks": {
+                    "Hot Drinks": {
+                        "Tea": [
+                            {"name": "Masala Tea", "price": "£3.00", "description": "Traditional spiced tea brewed to perfection."},
+                            {"name": "Karak Tea", "price": "£3.00", "description": "Rich, creamy tea with strong flavours."},
+                            {"name": "Kashmiri Pink Tea", "price": "£3.00", "description": "Fragrant pink tea with milk."},
+                            {"name": "Saffron Tea", "price": "£3.00", "description": "Warm, aromatic tea infused with saffron."},
+                            {"name": "House Tea", "price": "£2.50", "description": "Simple, comforting black tea."},
+                            {"name": "Elaichi Tea", "price": "£3.00", "description": "Flavorful cardamom tea, pleasant aroma and refreshing taste."},
+                            {"name": "Boost Milk", "price": "£3.75", "description": "Malted chocolate-flavored energy drink mix that helps to recharge the body and mind"}
+                        ],
+                        "Coffee": [
+                            {"name": "Cappuccino", "price": "£3.00", "description": "Classic blend of espresso, milk, and foam."},
+                            {"name": "Americano", "price": "£2.50", "description": "Smooth espresso mixed with hot water."},
+                            {"name": "Hot Chocolate", "price": "£3.50", "description": "Rich, creamy chocolate indulgence."},
+                            {"name": "Mocha", "price": "£3.95", "description": "Espresso mixed with chocolate and milk."},
+                            {"name": "Espresso Shot", "price": "£1.50/ £2", "description": "Pure, strong coffee essence."}
+                        ]
+                    },
+                    "Cold Drinks": {
+                        "Matcha": [
+                            {"name": "Blueberry Matcha", "price": "£4.55", "description": "Fruity, fresh, lightly sweet. ~120 kcal"},
+                            {"name": "Strawberry Matcha", "price": "£4.55", "description": "Creamy strawberry notes with smooth matcha. ~130 kcal"},
+                            {"name": "White Chocolate Matcha", "price": "£4.55", "description": "Rich, velvety, indulgent. ~180 kcal"},
+                            {"name": "Trimasu Matcha", "price": "£4.55", "description": "Layered tiramisu flavor, soft and gentle. ~190 kcal"},
+                            {"name": "Sweet-Heat Matcha", "price": "£4.55", "description": "Subtle spice, sweet warmth."}
+                        ],
+                        "Latte": [
+                            {"name": "Whipped Honey Latte", "price": "£4.55", "description": "Creamy latte with a touch of honey sweetness."},
+                            {"name": "Korean Banana Milk Latte", "price": "£5.95", "description": "Smooth, naturally sweet banana blended with milk and espresso."},
+                            {"name": "Cracking Latte", "price": "£4.45", "description": "Rich espresso, perfectly balanced with creamy milk, a café classic with a twist."},
+                            {"name": "Ube Latte", "price": "£4.75", "description": "Subtly sweet purple yam flavor, creamy and unique."},
+                            {"name": "Spanish Iced Latte", "price": "£4.95", "description": "Cold, smooth, with caramelized milk and espresso."}
+                        ],
+                        "Hot Chocolate Coffee": [
+                            {"name": "Cracking / Crackle Chocolate Coffee", "price": "£4.95", "description": "Rich chocolate with a hint of espresso, smooth and warming."},
+                            {"name": "Chocolate Dalgona Coffee", "price": "£4.45", "description": "Fluffy whipped chocolate foam over milk, playful and sweet."},
+                            {"name": "The Ultimate Hot Chocolate Coffee", "price": "£5.95", "description": "Deep, indulgent chocolate, extra creamy, the ultimate treat."}
+                        ],
+                        "Shakes": [
+                            {"name": "Avocado Bliss", "price": "£5.25", "description": "A silky, creamy avocado shake that’s pure green indulgence."},
+                            {"name": "Strawberry Serenade", "price": "£5.25", "description": "Luscious strawberries blended into a refreshingly sweet delight."},
+                            {"name": "Cookies & Cream Obsession", "price": "£5.95", "description": "Decadent cookies fused with rich cream for a heavenly treat."},
+                            {"name": "Mango Mirage", "price": "£5.25", "description": "Sun-kissed mango transformed into a smooth, tropical escape."}
+                        ]
+                    }
+                }
+            }
+        </script>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
